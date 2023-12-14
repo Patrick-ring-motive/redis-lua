@@ -23,7 +23,7 @@ return string.gsub(ARGV[1],"redis.io","WORKERHOST")
 `;
 
 let luascriptBody=`
-return string.gsub(ARGV[1],"</head>","<link href=https://redis-lua.vercel.app/redis-lua-styles.css rel=stylesheet /></head>")
+return string.gsub(ARGV[1],"</head>","<script src=https://redis-lua.vercel.app/framework.js></script><script src=https://redis-lua.vercel.app/redis-lua-scripts.js></script><link href=https://redis-lua.vercel.app/redis-lua-styles.css rel=stylesheet /></head>")
 `;
 
 
