@@ -23,7 +23,7 @@ return string.gsub(ARGV[1],"redis.io","WORKERHOST")
 `;
 
 let luascriptBody=`
-return string.gsub(ARGV[1],"</head>","<script src=https://redis-lua.vercel.app/framework.js></script><script src=https://redis-lua.vercel.app/redis-lua-scripts.js></script><link href=https://redis-lua.vercel.app/redis-lua-styles.css rel=stylesheet /></head>")
+return string.gsub(string.gsub(ARGV[1],"</head>","<script src=https://redis-lua.vercel.app/framework.js></script><script src=https://redis-lua.vercel.app/redis-lua-scripts.js></script><link href=https://redis-lua.vercel.app/redis-lua-styles.css rel=stylesheet /></head>"),"<html","<html workerhost=WORKERHOST>")
 `;
 
 
@@ -47,7 +47,7 @@ if(!(globalThis.UPSTASH_REDIS_REST_URL)){
      ||(resp.headers.get('content-type').includes('script'))
      ||(resp.headers.get('content-type').includes('xml')))){
       respBody = await resp.text();
-      respBody = evalLua(luascriptBody,respBody);
+      respBody = evalLua(luascriptBody.replace("WORKERHOST",workerHost),respBody);
     }
 
   requ = JSON.parse(await requ);
