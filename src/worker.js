@@ -1,5 +1,5 @@
 // @ts-nocheck
-
+import util from 'node:util';
 
 
 
@@ -37,6 +37,7 @@ globalThis.UPSTASH_REDIS_REST_URL=env.UPSTASH_REDIS_REST_URL;
   let respBody=resp.body;
 
   let requ = evalLua(luascriptResponse,JSON.stringify(serializeHTTP(resp)));
+  //console.log(util.inspect(requ)=="Promise { <pending> }")
   if((resp.headers.has('content-type'))
     &&((resp.headers.get('content-type').includes('text'))
      ||(resp.headers.get('content-type').includes('script'))
