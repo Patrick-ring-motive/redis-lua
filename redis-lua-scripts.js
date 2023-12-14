@@ -16,9 +16,9 @@ function swapRedisText(el,txt){
   }
 
   };
-  if(document.title.toLowerCase().includes('ruby')){
+  if(document.title.toLowerCase().includes('redis')){
     document.title=document.title
-      .replace(/ruby/gi,'Sapphire')
+      .replace(/redis/gi,txt);
      }
   return a;
   }
