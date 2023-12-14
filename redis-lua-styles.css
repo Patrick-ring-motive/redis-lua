@@ -1,33 +1,29 @@
 
-                div,span,p,h1,h2,h3,h4,h5,pre{
+div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]{
 
-                background-image: linear-gradient(to left, violet, indigo, blue, green, #b0ab27, orange, red) !important;
+  background-image: linear-gradient(to left, violet, indigo, blue, green, #b0ab27, orange, red) !important;
 
-                -webkit-background-clip: text;
+  -webkit-background-clip: text;
+  background-clip: text !important;
+  color: transparent !important;
 
-    background-clip: text !important;
-
-    color: transparent !important;
-
-                }
+ }
 
 
 
-                a:not(:has(*)),button,d1,dt{
+a:not(:has(*)),button,d1,dt{
 
-                background-image: linear-gradient(to right, violet, indigo, blue, green, #b0ab27, orange, red) !important;
+  background-image: linear-gradient(to right, violet, indigo, blue, green, #b0ab27, orange, red) !important;
+  color:white !important;
+  border-radius:1vmax;
 
-                color:white !important;
-
-                border-radius:1vmax;
-
-                }
+}
 
 
 
 
 
-                html,:nth-child(3n),:nth-of-type(3n-1){
+html,:nth-child(3n),:nth-of-type(3n-1){
 
   animation: 20s linear infinite rainbow;
 
