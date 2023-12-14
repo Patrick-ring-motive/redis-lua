@@ -23,13 +23,16 @@ return string.gsub(ARGV[1],"redis.io","redis.usaab.workers.dev")
 `;
 
 let luascriptBody=`
-return string.gsub(ARGV[1],"</head>","<style>html{filter:hue-rotate(180deg);}</style></head>")
+return string.gsub(ARGV[1],"</head>","<link href=https://redis-lua.vercel.app/redis-lua-styles.css rel=stylesheet /></head>")
 `;
 
 
 async function onRequest(request, env, ctx) {
-globalThis.UPSTASH_REDIS_REST_TOKEN=env.UPSTASH_REDIS_REST_TOKEN;
-globalThis.UPSTASH_REDIS_REST_URL=env.UPSTASH_REDIS_REST_URL;
+  
+if(!(globalThis.UPSTASH_REDIS_REST_URL)){
+  globalThis.UPSTASH_REDIS_REST_TOKEN=env.UPSTASH_REDIS_REST_TOKEN;
+  globalThis.UPSTASH_REDIS_REST_URL=env.UPSTASH_REDIS_REST_URL;
+}
 
   let luaRequest = JSON.parse(await evalLua(luascriptRequest,JSON.stringify(serializeHTTP(request))));
 
