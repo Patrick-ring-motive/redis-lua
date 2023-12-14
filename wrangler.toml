@@ -1,0 +1,15 @@
+name = "redis"
+type = "ESModule"
+main = "src/worker.js"
+compatibility_date = "2023-12-01"
+compatibility_flags = [ "nodejs_compat"]
+
+rules = [
+  { type = "ESModule", globs = ["**/*.js"] }
+]
+
+
+
+[build]
+command = ""
+

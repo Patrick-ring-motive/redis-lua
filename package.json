@@ -1,0 +1,21 @@
+{
+  "name": "cloudflare",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230801.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.34.1",
+    "wrangler": "2.20.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev --local",
+    "deploy": "wrangler publish --no-bundle",
+    "test": "vitest",
+    "start-persist": "wrangler dev --local --persist-to ./data",
+    "replit-run-command": "npm run start"
+  },
+  "dependencies": {
+    "src": "^1.1.2"
+  }
+}
