@@ -16,10 +16,10 @@ export default {
 
 
 let luascriptRequest=`
-return string.gsub(ARGV[1],"redis.usaab.workers.dev","redis.io")
+return string.gsub(ARGV[1],"WORKERHOST","redis.io")
 `;
 let luascriptResponse=`
-return string.gsub(ARGV[1],"redis.io","redis.usaab.workers.dev")
+return string.gsub(ARGV[1],"redis.io","WORKERHOST")
 `;
 
 let luascriptBody=`
@@ -33,13 +33,14 @@ if(!(globalThis.UPSTASH_REDIS_REST_URL)){
   globalThis.UPSTASH_REDIS_REST_TOKEN=env.UPSTASH_REDIS_REST_TOKEN;
   globalThis.UPSTASH_REDIS_REST_URL=env.UPSTASH_REDIS_REST_URL;
 }
+  const workerHost = request.headers.get('host');
 
-  let luaRequest = JSON.parse(await evalLua(luascriptRequest,JSON.stringify(serializeHTTP(request))));
+  let luaRequest = JSON.parse(await evalLua(luascriptRequest.replace("WORKERHOST",workerHost),JSON.stringify(serializeHTTP(request))));
 
   let resp=await fetch(luaRequest.url,luaRequest);
   let respBody=resp.body;
 
-  let requ = evalLua(luascriptResponse,JSON.stringify(serializeHTTP(resp)));
+  let requ = evalLua(luascriptResponse.replace("WORKERHOST",workerHost),JSON.stringify(serializeHTTP(resp)));
   //console.log(util.inspect(requ)=="Promise { <pending> }")
   if((resp.headers.has('content-type'))
     &&((resp.headers.get('content-type').includes('text'))
