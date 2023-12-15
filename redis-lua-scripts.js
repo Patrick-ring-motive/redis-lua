@@ -35,3 +35,12 @@ swapRedisText(document.body,'Rainbowis');
 
 
 
+declare(()=>{
+
+  queryApplyAll('a.z-50',(el)=>{
+  
+    el.updateAttribute('redis',window.location.hostname.split('.')[0]);
+
+  });
+
+});
