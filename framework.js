@@ -102,7 +102,7 @@ declare(()=>{
     for(let i=0;i<attrs_length;i++){try{
       let atr = attrs[i].replaceAll(':','-');
       if(el.matches('['+ atr +']')){continue;}
-      el.updateAttribute(atr,el.getAttribute(attrs[i]));
+      el.setAttribute(atr,el.getAttribute(attrs[i]));
     }catch(e){continue;}}
 
   });
