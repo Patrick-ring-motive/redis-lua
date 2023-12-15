@@ -102,7 +102,7 @@ globalThis.fetchText=async function(){
     return (await fetch(...arguments)).text();
 }
 
-globalThi=async function(){
+globalThis.fetchResponseArrayBuffer=async function(){
     let res = await fetch(...arguments);
     res.fullBody = await res.arrayBuffer();
     return res;
