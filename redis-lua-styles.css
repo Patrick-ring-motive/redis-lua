@@ -4,7 +4,15 @@ a.z-50{display:contents; }
 a.z-50>svg{transform:scaleX(-1);}
 a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:capitalize;padding-left:5px;}
 
+:is(html[window-location*="red"],html[workerhost*="red"])  a.z-50::after{content:attr(redis);color:#E14318;font-size:20px;text-transform:capitalize;padding-left:5px;
+                                                                         -webkit-text-stroke: 0.5px darkred;
+                                                                         text-shadow:
+                                                                           0.5px 0.5px 0 darkred,
+                                                                           -0.5px 0.5px 0 darkred,
+                                                                           -0.5px -0.5px 0 darkred,
+                                                                           0.5px -0.5px 0 darkred;
 
+                                                                        }
 
 :is(html[window-location*="red"],html[workerhost*="red"]) :is(div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]))
 {
