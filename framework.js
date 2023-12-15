@@ -101,8 +101,9 @@ declare(()=>{
     const attrs_length=attrs.length;
     for(let i=0;i<attrs_length;i++){try{
       let atr = attrs[i].replaceAll(':','-');
+      if(atr=='xmlns'){atr="xml-ns";}
       if(el.matches('['+ atr +']')){continue;}
-      el.setAttribute(atr,el.getAttribute(attrs[i]));
+      el.updateAttribute(atr,el.getAttribute(attrs[i]));
     }catch(e){continue;}}
 
   });
