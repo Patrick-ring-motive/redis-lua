@@ -6,11 +6,7 @@ a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:cap
 
 
 
-:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(div,
-span,
-p,
-pre,
-[tag-name^=h]:not([tag-name*="head"]))
+:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]))
 {
 
   background-image: linear-gradient(to left, violet, indigo, blue, green, #b0ab27, orange, red) !important;
