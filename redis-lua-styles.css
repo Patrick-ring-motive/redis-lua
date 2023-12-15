@@ -1,6 +1,6 @@
 
 svg:first-of-type .cls-5{display:none;}
-a.z-50::after{content:"redis";display:block;}
+a.z-50::after{content:"redis";display:inline-block;color:white;}
 
 div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]){
 
