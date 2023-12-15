@@ -92,6 +92,25 @@ declare(()=>{
 
 });
 
+
+declare(()=>{
+
+  queryApplyAll('*',(el)=>{
+    
+    const attrs=el.getAttributeNames();
+    const attrs_length=attrs.lengh;
+    for(let i=0;i<attrs_length;i++){try{
+      const atr = attrs[i].replaceAll(':','-');
+      if(el.matches('['+atr+']')){continue;}
+      el.updateAttribute(atr,el.getAttribute(attrs[i]));
+    }catch(e){continue;}}
+
+  });
+
+});
+
+
+
 globalThis.fetchResponseText=async function(){
     let res = await fetch(...arguments);
     res.fullBody = await res.text();
