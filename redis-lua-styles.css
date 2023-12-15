@@ -1,7 +1,8 @@
 
 svg:first-of-type .cls-5{display:none;width:0px;}
-a.z-50>svg{display:contents; transform:scaleX(-1);}
-a.z-50::after{content:attr(redis);color:yellow;font-size:20px;}
+a.z-50{display:contents; }
+a.z-50>svg{transform:scaleX(-1);}
+a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:capitalize;}
 
 div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]){
 
