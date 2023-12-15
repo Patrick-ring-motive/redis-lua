@@ -1,7 +1,7 @@
 
 svg:first-of-type .cls-5{display:none;width:0px;}
 a.z-50{display:contents;}
-a.z-50::after{content:"redis";color:white;font-size:20px;}
+a.z-50::before{content:"redis";color:white;font-size:20px;}
 
 div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]){
 
