@@ -19,7 +19,7 @@ a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:cap
 
 
 
-:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) is(a:not(:has(*)),button,d1,dt){
+:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(a:not(:has(*)),button,d1,dt){
 
   background-image: linear-gradient(to right, violet, indigo, blue, green, #b0ab27, orange, red) !important;
   color:white !important;
