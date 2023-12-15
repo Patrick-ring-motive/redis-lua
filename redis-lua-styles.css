@@ -11,6 +11,13 @@ a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:cap
 
 
   color: #E14318;
+  -webkit-text-fill-color: #E14318;
+  -webkit-text-stroke: 3px black;
+  text-shadow:
+    3px 3px 0 #000,
+    -3px 3px 0 #000,
+    -3px -3px 0 #000,
+    3px -3px 0 #000;
 
  }
 
