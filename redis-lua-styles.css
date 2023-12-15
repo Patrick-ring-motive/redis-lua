@@ -1,6 +1,6 @@
 
 svg:first-of-type g{display:none;}
-svg:first-of-type::before{content:"redis";display:block;}
+svg:first-of-type::after{content:"redis";display:block;}
 
 div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]){
 
