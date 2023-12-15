@@ -43,6 +43,10 @@ a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:cap
 filter:hue-rotate(180deg);
 }
 
+:is(html[window-location*="red"],html[workerhost*="red"]) 
+.border-indigo-500{
+  border-color:#E14318;
+}
 
 :is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]))
 {
