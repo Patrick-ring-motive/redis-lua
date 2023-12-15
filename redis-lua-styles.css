@@ -18,7 +18,7 @@ a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:cap
 {
 
 
-  color: #E14318;
+  xcolor: #E14318;
   x-webkit-text-fill-color: #E14318;
   -webkit-text-stroke: 0.5px darkred;
   text-shadow:
