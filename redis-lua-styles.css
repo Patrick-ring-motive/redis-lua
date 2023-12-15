@@ -39,7 +39,7 @@ a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:cap
 }
 
 :is(html[window-location*="red"],html[workerhost*="red"]) 
-.items-center>svg{
+:is(.items-center>svg,[xmlns-dc="http://purl.org/dc/elements/1.1/"]){
 filter:hue-rotate(180deg);
 }
 
