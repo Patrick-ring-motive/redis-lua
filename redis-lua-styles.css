@@ -5,8 +5,13 @@ a.z-50>svg{transform:scaleX(-1);}
 a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:capitalize;padding-left:5px;}
 
 
-html[window-location*="rainbow"],html[workerhost*="rainbow"]{
-div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]){
+
+:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(div,
+span,
+p,
+pre,
+[tag-name^=h]:not([tag-name*="head"]))
+{
 
   background-image: linear-gradient(to left, violet, indigo, blue, green, #b0ab27, orange, red) !important;
 
@@ -18,7 +23,7 @@ div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]){
 
 
 
-a:not(:has(*)),button,d1,dt{
+:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) is(a:not(:has(*)),button,d1,dt){
 
   background-image: linear-gradient(to right, violet, indigo, blue, green, #b0ab27, orange, red) !important;
   color:white !important;
@@ -30,13 +35,11 @@ a:not(:has(*)),button,d1,dt{
 
 
 
-:nth-child(3n),:nth-of-type(3n-1){
+:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]),:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(:nth-child(3n),:nth-of-type(3n-1)){
 
   animation: 20s linear infinite rainbow;
 
 }
-
-  animation: 20s linear infinite rainbow;
 }
 
 
