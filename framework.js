@@ -2,6 +2,17 @@ globalThis.await=(promise)=>{console.log("Attempting to await promise in synchro
 
 globalThis.yield=(next)=>{console.log("Attempting to yield next outside of a generator ",next);return next;};
 
+globalThis.ptr=function(obj){
+ let pointer = Object.create(null);
+  pointer['*'] = obj;
+  Object.seal(pointer);
+  return pointer;
+}
+
+String.prototype.X=function(){return arguments[0](this,...Array.from(arguments).slice(1));};
+
+console.detail = function(stuff){try{stuff.constructor.prototype._log=function(){console.log(this);};return stuff._log();}catch(e){console.log(stuff);}};
+console.list = function(){console.log([...arguments]);};
 
 globalThis.queryApplyAll=async function(query,func){
 
