@@ -183,7 +183,7 @@ declare(() => {
     const attrs_length = attrs.length;
     for (let i = 0; i < attrs_length; i++) {
       try {
-        let atr = attrs[i].replaceAll(':', 'i');
+        let atr = attrs[i].replaceAll(':', '-');
         if (atr == 'xmlns') { atr = "xml-ns"; }
         if (el.matches('[' + atr + ']')) { continue; }
         el.updateAttribute(atr, el.getAttribute(attrs[i]));
@@ -194,7 +194,14 @@ declare(() => {
 
 });
 
-
+globalThis.safeFetch=async function(){
+  try{
+    return await fetch(...arguments);
+  }catch(e){
+    console.log(e);
+    return new Response(e.toString(),{status:569,statusText:e.message});
+  }
+}
 
 globalThis.fetchResponseText = async function() {
   let res = await fetch(...arguments);
