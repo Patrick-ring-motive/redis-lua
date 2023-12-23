@@ -2,7 +2,7 @@ globalThis.await = (promise) => { console.log("Attempting to await promise in sy
 
 globalThis.yield = (next) => { console.log("Attempting to yield next outside of a generator ", next); return next; };
 
-globalThis.async = async _=>_;
+globalThis.async = async _=>{return await _;};
 
 globalThis.ptr = function(obj) {
   let pointer = Object.create(null);
@@ -85,7 +85,7 @@ globalThis.queryAttrAll = async function(query, attr, val, func) {
     try {
       func(elem);
       elem.updateAttribute(attr, val);
-    } catch (e) { await ("queryApplyAll"); console.log(e); continue; }
+    } catch (e) { await async("queryApplyAll"); console.log(e); continue; }
     finally {
       elem.updateAttribute(attr, val);
     }
@@ -122,7 +122,7 @@ globalThis.declareEvaluator = async function() {
 
       declarations[i]();
 
-    } catch (e) { await ("declareEvaluator"); console.log(e); continue; }
+    } catch (e) { await async("declareEvaluator"); console.log(e); continue; }
   }
 
 };
@@ -245,33 +245,35 @@ globalThis.console.lag = async function() {
 }
 
 
-globalThis.ifTry = (bool, then, elseThen) => {
+globalThis.$ifTry = async (bool, then, elseThen) => {
+    bool=await bool;
   if (bool) {
     try {
       if ((typeof bool) == 'function') {
-        if (bool()) {
-          return then();
+        if (await bool()) {
+          return await then();
         } else {
-          return elseThen(e);
+          return await elseThen(e);
         }
       } else {
-        return then();
+        return await then();
       }
     } catch (e) {
-      if (elseThen) {
-        return elseThen(e);
+      if (await elseThen) {
+        return await(await elseThen)(e);
       } else {
         return;
       }
     }
   } else {
-    if (elseThen) {
-      return elseThen(e);
+    if (await elseThen) {
+      return await(await elseThen)(e);
     } else {
       return;
     }
   }
 }
+
 
 
 
