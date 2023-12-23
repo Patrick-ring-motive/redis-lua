@@ -1,6 +1,8 @@
 globalThis.await = (promise) => { console.log("Attempting to await promise in synchronous context ", promise); return promise; };
 
-globalThis.yield = (next) => { console.log("Attempting to yield next outside of a generator ", next); ret  urn next; };
+globalThis.yield = (next) => { console.log("Attempting to yield next outside of a generator ", next); return next; };
+
+globalThis.async = async _=>_;
 
 globalThis.ptr = function(obj) {
   let pointer = Object.create(null);
@@ -67,7 +69,7 @@ globalThis.queryApplyAll = async function(query, func) {
   for (let i = 0; i < elems_length; i++) {
     try {
       func(elems[i]);
-    } catch (e) { await ("queryApplyAll"); console.log(e); continue; }
+    } catch (e) { await async("queryApplyAll"); console.log(e); continue; }
   }
 
 }
