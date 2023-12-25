@@ -61,6 +61,35 @@ Element.prototype.updateAttribute = function(attr, val) {
   }
 }
 
+Element.prototype.getStyle=function(attribute) {
+
+try{
+
+
+  let compStyles = window.getComputedStyle(this);
+
+  const out=compStyles.getPropertyValue(attribute)||compStyles[attribute];
+  return out;
+  }catch(e){
+
+  return undefined;
+
+  }
+  return undefined;
+};
+
+Element.prototype.updateStyle = function(attr, val) {
+  const el = this;
+  const elstyle = el.getStyle(attr);
+  if (!(elstyle)) {
+    el.style[attr] = val;
+  } else {
+    if (elstyle != val) {
+      el.style[attr] = val;
+    }
+  }
+}
+
 
 globalThis.queryApplyAll = async function(query, func) {
 
@@ -96,18 +125,19 @@ globalThis.queryAttrAll = async function(query, attr, val, func) {
 
 
 globalThis.queryBindAll=function(query,func){
+  const attr="query-"+sanitizeAttr(query)+sanitizeAttr(func.toString());
+  query = query + ":not(["+attr+"])";
+  console.log(query)
   declare(()=>{
-    const attr="query-"+sanitizeAttr(query)
-    query = query + ":not(["+attr+"])";
     queryAttrAll(query,attr,"bound",func);
-  });
+  },query);
 }
 
 
 if (!(globalThis.declarations)) { globalThis.declarations = []; globalThis.declarationStrings = []; }
 
-globalThis.declare = function(func) {
-  let funcString = func.toString();
+globalThis.declare = function(func,id) {
+  let funcString = func.toString()+id;
   if (!(declarationStrings.includes(funcString))) {
     globalThis.declarations.push(func);
     globalThis.declarationStrings.push(funcString);
