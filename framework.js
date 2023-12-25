@@ -67,7 +67,6 @@ try{
 
 
   let compStyles = window.getComputedStyle(this);
-
   const out=compStyles.getPropertyValue(attribute)||compStyles[attribute];
   return out;
   }catch(e){
