@@ -33,14 +33,18 @@ swapRedisText(document.body,'Rainbowis');
 
 }
 
-
-
-declare(()=>{
-
-  queryApplyAll('a.z-50',(el)=>{
+void async function(){
   
-    el.updateAttribute('redis',window.location.hostname.split('.')[0]);
-
+await import('https://www.unpkg.com/javaxscript@1.1.31/framework.js');
+  
+  declare(()=>{
+  
+    queryApplyAll('a.z-50',(el)=>{
+    
+      el.updateAttribute('redis',window.location.hostname.split('.')[0]);
+  
+    });
+  
   });
 
-});
+}();
