@@ -1,8 +1,16 @@
-globalThis.await = (promise) => { console.log("Attempting to await promise in synchronous context ", promise); return promise; };
+globalThis.await = (promise) => {
+  console.log("Attempting to await promise in synchronous context ", promise);
+  return promise;
+};
 
-globalThis.yield = (next) => { console.log("Attempting to yield next outside of a generator ", next); return next; };
+globalThis.yield = (next) => {
+  console.log("Attempting to yield next outside of a generator ", next);
+  return next;
+};
 
-globalThis.async = async _=>{return await _;};
+globalThis.async = async _ => {
+  return await _;
+};
 
 globalThis.ptr = function(obj) {
   let pointer = Object.create(null);
@@ -11,10 +19,19 @@ globalThis.ptr = function(obj) {
   return pointer;
 }
 
-
-
-console.detail = function(stuff) { try { stuff.constructor.prototype._log = function() { console.log(this); }; return stuff._log(); } catch (e) { console.log(stuff); } };
-console.list = function() { console.log([...arguments]); };
+console.detail = function(stuff) {
+  try {
+    stuff.constructor.prototype._log = function() {
+      console.log(this);
+    };
+    return stuff._log();
+  } catch (e) {
+    console.log(stuff);
+  }
+};
+console.list = function() {
+  console.log([...arguments]);
+};
 
 globalThis.sanitizeAttr = function(str) {
   return str.replaceAll(':', 'i')
@@ -61,17 +78,16 @@ Element.prototype.updateAttribute = function(attr, val) {
   }
 }
 
-Element.prototype.getStyle=function(attribute) {
+Element.prototype.getStyle = function(attribute) {
 
-try{
+  try {
 
+    let compStyles = window.getComputedStyle(this);
+    const out = compStyles.getPropertyValue(attribute) || compStyles[attribute];
+    return out;
+  } catch (e) {
 
-  let compStyles = window.getComputedStyle(this);
-  const out=compStyles.getPropertyValue(attribute)||compStyles[attribute];
-  return out;
-  }catch(e){
-
-  return undefined;
+    return undefined;
 
   }
   return undefined;
@@ -89,7 +105,6 @@ Element.prototype.updateStyle = function(attr, val) {
   }
 }
 
-
 globalThis.queryApplyAll = async function(query, func) {
 
   let elems = Array.from(document.querySelectorAll(query));
@@ -97,12 +112,14 @@ globalThis.queryApplyAll = async function(query, func) {
   for (let i = 0; i < elems_length; i++) {
     try {
       func(elems[i]);
-    } catch (e) { await async("queryApplyAll"); console.log(e); continue; }
+    } catch (e) {
+      await async ("queryApplyAll");
+      console.log(e);
+      continue;
+    }
   }
 
 }
-
-
 
 globalThis.queryAttrAll = async function(query, attr, val, func) {
 
@@ -113,8 +130,11 @@ globalThis.queryAttrAll = async function(query, attr, val, func) {
     try {
       func(elem);
       elem.updateAttribute(attr, val);
-    } catch (e) { await async("queryApplyAll"); console.log(e); continue; }
-    finally {
+    } catch (e) {
+      await async ("queryApplyAll");
+      console.log(e);
+      continue;
+    } finally {
       elem.updateAttribute(attr, val);
     }
 
@@ -122,21 +142,22 @@ globalThis.queryAttrAll = async function(query, attr, val, func) {
 
 }
 
-
-globalThis.queryBindAll=function(query,func){
-  const attr="query-"+sanitizeAttr(query)+sanitizeAttr(func.toString());
-  query = query + ":not(["+attr+"])";
+globalThis.queryBindAll = function(query, func) {
+  const attr = "query-" + sanitizeAttr(query) + sanitizeAttr(func.toString());
+  query = query + ":not([" + attr + "])";
   console.log(query)
-  declare(()=>{
-    queryAttrAll(query,attr,"bound",func);
-  },query);
+  declare(() => {
+    queryAttrAll(query, attr, "bound", func);
+  }, query);
 }
 
+if (!(globalThis.declarations)) {
+  globalThis.declarations = [];
+  globalThis.declarationStrings = [];
+}
 
-if (!(globalThis.declarations)) { globalThis.declarations = []; globalThis.declarationStrings = []; }
-
-globalThis.declare = function(func,id) {
-  let funcString = func.toString()+id;
+globalThis.declare = function(func, id) {
+  let funcString = func.toString() + id;
   if (!(declarationStrings.includes(funcString))) {
     globalThis.declarations.push(func);
     globalThis.declarationStrings.push(funcString);
@@ -151,20 +172,28 @@ globalThis.declareEvaluator = async function() {
 
       declarations[i]();
 
-    } catch (e) { await async("declareEvaluator"); console.log(e); continue; }
+    } catch (e) {
+      await async ("declareEvaluator");
+      console.log(e);
+      continue;
+    }
   }
 
 };
 
-
-
 globalThis.declareEvaluator();
-document.addEventListener("DOMContentLoaded", (event) => { globalThis.declareEvaluator(); });
-document.addEventListener("readystatechange", (event) => { globalThis.declareEvaluator(); });
-window.addEventListener("load", (event) => { globalThis.declareEvaluator(); });
-setInterval(function() { globalThis.declareEvaluator(); }, 100);
-
-
+document.addEventListener("DOMContentLoaded", (event) => {
+  globalThis.declareEvaluator();
+});
+document.addEventListener("readystatechange", (event) => {
+  globalThis.declareEvaluator();
+});
+window.addEventListener("load", (event) => {
+  globalThis.declareEvaluator();
+});
+setInterval(function() {
+  globalThis.declareEvaluator();
+}, 100);
 
 let page_html = document.querySelector('html');
 
@@ -200,11 +229,12 @@ declare(() => {
     try {
       const tagname = untagged[i].outerHTML.toString().split('<')[1].split(' ')[0].split('>')[0];
       untagged[i].setAttribute('tag-name', tagname);
-    } catch (e) { continue; }
+    } catch (e) {
+      continue;
+    }
   }
 
 });
-
 
 declare(() => {
 
@@ -215,22 +245,31 @@ declare(() => {
     for (let i = 0; i < attrs_length; i++) {
       try {
         let atr = attrs[i].replaceAll(':', '-');
-        if (atr == 'xmlns') { atr = "xml-ns"; }
-        if (el.matches('[' + atr + ']')) { continue; }
+        if (atr == 'xmlns') {
+          atr = "xml-ns";
+        }
+        if (el.matches('[' + atr + ']')) {
+          continue;
+        }
         el.updateAttribute(atr, el.getAttribute(attrs[i]));
-      } catch (e) { continue; }
+      } catch (e) {
+        continue;
+      }
     }
 
   });
 
 });
 
-globalThis.safeFetch=async function(){
-  try{
+globalThis.safeFetch = async function() {
+  try {
     return await fetch(...arguments);
-  }catch(e){
+  } catch (e) {
     console.log(e);
-    return new Response(e.toString(),{status:569,statusText:e.message});
+    return new Response(e.toString(), {
+      status: 569,
+      statusText: e.message
+    });
   }
 }
 
@@ -254,28 +293,58 @@ globalThis.fetchArrayBuffer = async function() {
   return (await fetch(...arguments)).arrayBuffer();
 }
 
-globalThis.Q = U => { try { return U(); } catch (e) { return undefined; } };
-globalThis.AQ = async (U) => { try { return await (U()); } catch (e) { return undefined; } };
+globalThis.Q = U => {
+  try {
+    return U();
+  } catch (e) {
+    return undefined;
+  }
+};
+globalThis.AQ = async (U) => {
+  try {
+    return await (U());
+  } catch (e) {
+    return undefined;
+  }
+};
 
-
-Function.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
-String.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
-Array.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
-Boolean.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
-Number.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
-BigInt.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
-Symbol.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
-Q(Node.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); });
-Q(Window.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); });
-Map.prototype.X = function() { return arguments[0](this, ...Array.from(arguments).slice(1)); };
+Function.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
+String.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
+Array.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
+Boolean.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
+Number.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
+BigInt.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
+Symbol.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
+Q(Node.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+});
+Q(Window.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+});
+Map.prototype.X = function() {
+  return arguments[0](this, ...Array.from(arguments).slice(1));
+};
 
 globalThis.console.lag = async function() {
   return console.log(...arguments);
 }
 
-
 globalThis.$ifTry = async (bool, then, elseThen) => {
-    bool=await bool;
+  bool = await bool;
   if (bool) {
     try {
       if ((typeof bool) == 'function') {
@@ -289,22 +358,19 @@ globalThis.$ifTry = async (bool, then, elseThen) => {
       }
     } catch (e) {
       if (await elseThen) {
-        return await(await elseThen)(e);
+        return await (await elseThen)(e);
       } else {
         return;
       }
     }
   } else {
     if (await elseThen) {
-      return await(await elseThen)(e);
+      return await (await elseThen)(e);
     } else {
       return;
     }
   }
 }
-
-
-
 
 /** The ever useful sleep function */
 globalThis.sleep = (ms) => {
@@ -314,19 +380,18 @@ globalThis.sleep = (ms) => {
 }
 
 /** asymc function object */
-globalThis.AsyncFunction = async function() { }.constructor;
-
-
+globalThis.AsyncFunction = async function() {}.constructor;
 
 /** extract a value from json 
 using string manipulation.
 Great for malformed json.
 */
 globalThis.JSON.extract = function(json, str) {
-  if (typeof json != 'string') { json = JSON.stringify(json); }
+  if (typeof json != 'string') {
+    json = JSON.stringify(json);
+  }
   return json.split(str)?.[1]?.split?.('"')?.[2];
 }
-
 
 /** change the character of a string at a specific index */
 globalThis.String.prototype.setCharAt =
@@ -336,11 +401,12 @@ globalThis.String.prototype.setCharAt =
     return str.join('');
   }
 
-
 String.prototype.includesAny = function(arr) {
   let arr_length = arr.length;
   for (let i = 0; i < arr_length; i++) {
-    if (this.includes(arr[i])) { return true; }
+    if (this.includes(arr[i])) {
+      return true;
+    }
   }
   return false;
 }
