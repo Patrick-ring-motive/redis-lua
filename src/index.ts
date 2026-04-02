@@ -9,106 +9,90 @@
  */
 
 export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	// MY_KV_NAMESPACE: KVNamespace;
-	//
-	// Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-	// MY_DURABLE_OBJECT: DurableObjectNamespace;
-	//
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-	// MY_BUCKET: R2Bucket;
-	//
-	// Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
-	// MY_SERVICE: Fetcher;
+  // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
+  // MY_KV_NAMESPACE: KVNamespace;
+  //
+  // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
+  // MY_DURABLE_OBJECT: DurableObjectNamespace;
+  //
+  // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
+  // MY_BUCKET: R2Bucket;
+  //
+  // Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
+  // MY_SERVICE: Fetcher;
 }
 
-if(!globalThis.cache){
-  globalThis.cache={};
+if (!globalThis.cache) {
+  globalThis.cache = {};
 }
-
 
 export default {
-  fetch(request,env,ctx) {
-   
-  let eventResponse = handleRequest(request,env,ctx);
-  return eventResponse;
-}
+  fetch(request, env, ctx) {
+
+    let eventResponse = handleRequest(request, env, ctx);
+    return eventResponse;
+  }
 };
 
+async function handleRequest(request, env, ctx) {
+  try {
+    console.log(await env.KVCache.list());
 
+    let urlpat = request.url;
 
-async function handleRequest(request,env,ctx) {
-try{
- console.log(await env.KVCache.list());
+    let url = new URL(urlpat);
+    let urlParams = url.searchParams;
 
+    const hostProxy = url.hostname;
 
+    url.hostname = 'www.geeksforgeeks.org';
 
-let urlpat=request.url;
+    let modifiedRequest = new Request(url, {
 
+      body: request.body,
 
-let url = new URL(urlpat);
-let urlParams = url.searchParams;
+      headers: request.headers,
 
-const hostProxy = url.hostname;
+      method: request.method
 
+    });
 
+    let response;
 
-url.hostname = 'www.geeksforgeeks.org';
+    if (globalThis.cache[url.toString()]) {
+      let resDTO = globalThis.cache[url.toString()];
+      response = new Response(resDTO.body, resDTO.options);
 
+      return response;
 
-let modifiedRequest = new Request(url, {
+    } else {
 
-body: request.body,
+      response = await fetch(modifiedRequest);
+      let bodyBuffer = await response.arrayBuffer();
+      globalThis.cache[url.toString()] = {
+        body: bodyBuffer,
+        options: response
+      };
 
-headers: request.headers,
+      let resDTO = globalThis.cache[url.toString()];
+      response = new Response(resDTO.body, resDTO.options);
 
-method: request.method
+      return response;
 
-});
+    }
 
-let response;
+  } catch (e) {
 
-if(globalThis.cache[url.toString()]){
-  let resDTO = globalThis.cache[url.toString()];
-  response = new Response(resDTO.body,resDTO.options);
+    return new Response("500 " + e?.message, {
+      status: 500
+    });
 
-  return response;
-
-}else{
-
-response = await fetch(modifiedRequest);
-let bodyBuffer=await response.arrayBuffer();
-globalThis.cache[url.toString()] = {body:bodyBuffer,options:response};
-
-let resDTO = globalThis.cache[url.toString()];
-response = new Response(resDTO.body,resDTO.options);
-
-
-return response;
-
-}
-
-
-
-}catch(e){
-
-    return  new Response("500 "+e?.message, {status:500});
-  
   }
 
-
 }
-
-
-
-
 
 async function streamBody(readable, writable) {
 
-
-return readable.pipeTo(writable);
+  return readable.pipeTo(writable);
 
 }
-
-
-
