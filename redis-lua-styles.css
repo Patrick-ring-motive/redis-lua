@@ -1,22 +1,40 @@
+svg:first-of-type .cls-5 {
+  display: none;
+  width: 0px;
+}
 
-svg:first-of-type .cls-5{display:none;width:0px;}
-a.z-50{display:contents; }
-a.z-50>svg{transform:scaleX(-1);}
-a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:capitalize;padding-left:5px;}
+a.z-50 {
+  display: contents;
+}
 
-:is(html[window-location*="red"],html[workerhost*="red"])  a.z-50::after{content:attr(redis);color:#E14318;font-size:20px;text-transform:capitalize;padding-left:5px;
-                                                                         -webkit-text-stroke: 0.5px darkred;
-                                                                         text-shadow:
-                                                                           0.5px 0.5px 0 darkred,
-                                                                           -0.5px 0.5px 0 darkred,
-                                                                           -0.5px -0.5px 0 darkred,
-                                                                           0.5px -0.5px 0 darkred;
+a.z-50>svg {
+  transform: scaleX(-1);
+}
 
-                                                                        }
+a.z-50::after {
+  content: attr(redis);
+  color: yellow;
+  font-size: 20px;
+  text-transform: capitalize;
+  padding-left: 5px;
+}
 
-:is(html[window-location*="red"],html[workerhost*="red"]) :is(div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]))
-{
+:is(html[window-location*="red"], html[workerhost*="red"]) a.z-50::after {
+  content: attr(redis);
+  color: #E14318;
+  font-size: 20px;
+  text-transform: capitalize;
+  padding-left: 5px;
+  -webkit-text-stroke: 0.5px darkred;
+  text-shadow:
+    0.5px 0.5px 0 darkred,
+    -0.5px 0.5px 0 darkred,
+    -0.5px -0.5px 0 darkred,
+    0.5px -0.5px 0 darkred;
 
+}
+
+:is(html[window-location*="red"], html[workerhost*="red"]) :is(div, span, p, h1, h2, h3, h4, h5, pre, [tag-name^=h]:not([tag-name*="head"])) {
 
   color: #E14318;
   x-webkit-text-fill-color: #E14318;
@@ -27,29 +45,24 @@ a.z-50::after{content:attr(redis);color:yellow;font-size:20px;text-transform:cap
     -0.5px -0.5px 0 darkred,
     0.5px -0.5px 0 darkred;
 
- }
+}
 
+:is(html[window-location*="red"], html[workerhost*="red"]) :is(a:not(:has(*)), button, d1, dt) {
 
-
-:is(html[window-location*="red"],html[workerhost*="red"]) :is(a:not(:has(*)),button,d1,dt){
-
-  background-color:  #E14318 !important;
-  border-radius:1vmax;
+  background-color: #E14318 !important;
+  border-radius: 1vmax;
 
 }
 
-:is(html[window-location*="red"],html[workerhost*="red"]) 
-:is(.items-center>svg,[xmlns-dc="http://purl.org/dc/elements/1.1/"]){
-filter:hue-rotate(180deg);
+:is(html[window-location*="red"], html[workerhost*="red"]):is(.items-center>svg, [xmlns-dc="http://purl.org/dc/elements/1.1/"]) {
+  filter: hue-rotate(180deg);
 }
 
-:is(html[window-location*="red"],html[workerhost*="red"]) 
-.border-indigo-500{
-  border-color:#E14318;
+:is(html[window-location*="red"], html[workerhost*="red"]) .border-indigo-500 {
+  border-color: #E14318;
 }
 
-:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(div,span,p,h1,h2,h3,h4,h5,pre,[tag-name^=h]:not([tag-name*="head"]))
-{
+:is(html[window-location*="rainbow"], html[workerhost*="rainbow"]) :is(div, span, p, h1, h2, h3, h4, h5, pre, [tag-name^=h]:not([tag-name*="head"])) {
 
   background-image: linear-gradient(to left, violet, indigo, blue, green, #b0ab27, orange, red) !important;
 
@@ -57,135 +70,105 @@ filter:hue-rotate(180deg);
   background-clip: text !important;
   color: transparent !important;
 
- }
+}
 
-
-
-:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(a:not(:has(*)),button,d1,dt){
+:is(html[window-location*="rainbow"], html[workerhost*="rainbow"]) :is(a:not(:has(*)), button, d1, dt) {
 
   background-image: linear-gradient(to right, violet, indigo, blue, green, #b0ab27, orange, red) !important;
-  color:white !important;
-  border-radius:1vmax;
+  color: white !important;
+  border-radius: 1vmax;
 
 }
 
-
-
-
-
-:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]),:is(html[window-location*="rainbow"],html[workerhost*="rainbow"]) :is(:nth-child(3n),:nth-of-type(3n-1)){
+:is(html[window-location*="rainbow"], html[workerhost*="rainbow"]),
+:is(html[window-location*="rainbow"], html[workerhost*="rainbow"]) :is(:nth-child(3n), :nth-of-type(3n-1)) {
 
   animation: 20s linear infinite rainbow;
 
 }
 
-
-
-
 @keyframes rainbow {
 
-0%{
+  0% {
 
-filter:hue-rotate(0deg);
+    filter: hue-rotate(0deg);
 
-}
+  }
 
+  25% {
 
+    filter: hue-rotate(90deg);
 
-25%{
+  }
 
-filter:hue-rotate(90deg);
+  50% {
 
-}
+    filter: hue-rotate(180deg);
 
+  }
 
+  75% {
 
-50%{
+    filter: hue-rotate(270deg);
 
-filter:hue-rotate(180deg);
+  }
 
-}
+  100% {
 
+    filter: hue-rotate(360deg);
 
-
-75%{
-
-filter:hue-rotate(270deg);
-
-}
-
-
-
-100%{
-
-filter:hue-rotate(360deg);
+  }
 
 }
 
-}
-
-
-
-
-
-                --body{
+--body {
 
   animation: 39s linear infinite inversion;
 
 }
 
-
-
 @keyframes inversion {
 
-0%{
+  0% {
 
-filter:invert(0) sepia(0);
+    filter: invert(0) sepia(0);
 
-}
+  }
 
+  24% {
 
+    filter: invert(0.4) sepia(1);
 
-24%{
+  }
 
-filter:invert(0.4) sepia(1) ;
+  26% {
 
-}
+    filter: invert(0.6) sepia(1);
 
-26%{
+  }
 
-filter:invert(0.6) sepia(1) ;
+  50% {
 
-}
+    filter: invert(1) sepia(0);
 
+  }
 
+  74% {
 
-50%{
+    filter: invert(0.6) sepia(1);
 
-filter:invert(1) sepia(0) ;
+  }
 
-}
+  76% {
 
+    filter: invert(0.4) sepia(1);
 
+  }
 
-74%{
+  100% {
 
-filter:invert(0.6) sepia(1) ;
+    filter: invert(0) sepia(0);
 
-}
-
-76%{
-
-filter:invert(0.4) sepia(1) ;
-
-}
-
-
-
-100%{
-
-filter:invert(0) sepia(0) ;
-
-}
+  }
 
 }
